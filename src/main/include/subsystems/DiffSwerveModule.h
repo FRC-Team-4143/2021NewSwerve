@@ -23,8 +23,7 @@ class DiffSwerveModule {
 
  public:
   DiffSwerveModule(int driveMotorChannel, int turningMotorChannel,
-               const int driveEncoderPorts[2], const int turningEncoderPorts[2],
-               bool driveEncoderReversed, bool turningEncoderReversed,
+               //const int driveEncoderPorts[2], const int turningEncoderPorts[2],
                int steeringEncoderID);
 
   frc::SwerveModuleState GetState();
@@ -32,6 +31,11 @@ class DiffSwerveModule {
   void SetDesiredState(const frc::SwerveModuleState& state);
 
   void ResetEncoders();
+
+  float GetDriveMotorSpeed(){
+      return ((m_driveMotor.GetSelectedSensorVelocity() - m_turningMotor.GetSelectedSensorVelocity()) / 2.0) 
+          * (10.0 / 2048) /*Revs per second*/ * ((10 / 88.0) * (54 / 14.0) * (1 / 3.0)) /*Gear Ratios*/ * (4.5 * 0.0254 * wpi::math::pi) /*Axle Revs per Second*/;
+  }
 
  private:
   // We have to use meters here instead of radians due to the fact that
@@ -48,8 +52,8 @@ class DiffSwerveModule {
   TalonFX m_driveMotor;
   TalonFX m_turningMotor;
 
-  frc::Encoder m_driveEncoder;
-  frc::Encoder m_turningEncoder;
+  //frc::Encoder m_driveEncoder;
+  //frc::Encoder m_turningEncoder;
 
   CANCoder m_steeringEncoder;
 
