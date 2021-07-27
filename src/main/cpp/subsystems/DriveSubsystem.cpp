@@ -19,22 +19,26 @@ DriveSubsystem::DriveSubsystem()
                   kFrontLeftDriveEncoderPorts,
                   kFrontLeftTurningEncoderPorts,
                   kFrontLeftDriveEncoderReversed,
-                  kFrontLeftTurningEncoderReversed},
+                  kFrontLeftTurningEncoderReversed,
+                  1},
 
       m_rearLeft{
           kRearLeftDriveMotorPort,       kRearLeftTurningMotorPort,
           kRearLeftDriveEncoderPorts,    kRearLeftTurningEncoderPorts,
-          kRearLeftDriveEncoderReversed, kRearLeftTurningEncoderReversed},
+          kRearLeftDriveEncoderReversed, kRearLeftTurningEncoderReversed,
+          2},
 
       m_frontRight{
           kFrontRightDriveMotorPort,       kFrontRightTurningMotorPort,
           kFrontRightDriveEncoderPorts,    kFrontRightTurningEncoderPorts,
-          kFrontRightDriveEncoderReversed, kFrontRightTurningEncoderReversed},
+          kFrontRightDriveEncoderReversed, kFrontRightTurningEncoderReversed,
+          3},
 
       m_rearRight{
           kRearRightDriveMotorPort,       kRearRightTurningMotorPort,
           kRearRightDriveEncoderPorts,    kRearRightTurningEncoderPorts,
-          kRearRightDriveEncoderReversed, kRearRightTurningEncoderReversed},
+          kRearRightDriveEncoderReversed, kRearRightTurningEncoderReversed,
+          4},
 
       m_odometry{kDriveKinematics, m_gyro.GetRotation2d(), frc::Pose2d()} {}
 

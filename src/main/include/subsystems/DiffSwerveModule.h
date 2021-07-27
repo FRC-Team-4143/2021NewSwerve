@@ -11,6 +11,7 @@
 #include <frc/geometry/Rotation2d.h>
 #include <frc/kinematics/SwerveModuleState.h>
 #include <frc/trajectory/TrapezoidProfile.h>
+#include <ctre/Phoenix.h>
 #include <wpi/math>
 
 #include "Constants.h"
@@ -23,7 +24,8 @@ class DiffSwerveModule {
  public:
   DiffSwerveModule(int driveMotorChannel, int turningMotorChannel,
                const int driveEncoderPorts[2], const int turningEncoderPorts[2],
-               bool driveEncoderReversed, bool turningEncoderReversed);
+               bool driveEncoderReversed, bool turningEncoderReversed,
+               int steeringEncoderID);
 
   frc::SwerveModuleState GetState();
 
@@ -43,11 +45,13 @@ class DiffSwerveModule {
           units::unit_t<radians_per_second_squared_t>(
               wpi::math::pi * 2.0);  // radians per second squared
 
-  frc::Spark m_driveMotor;
-  frc::Spark m_turningMotor;
+  TalonFX m_driveMotor;
+  TalonFX m_turningMotor;
 
   frc::Encoder m_driveEncoder;
   frc::Encoder m_turningEncoder;
+
+  CANCoder m_steeringEncoder;
 
   bool m_reverseDriveEncoder;
   bool m_reverseTurningEncoder;

@@ -13,13 +13,15 @@ DiffSwerveModule::DiffSwerveModule(int driveMotorChannel, int turningMotorChanne
                            const int driveEncoderPorts[],
                            const int turningEncoderPorts[],
                            bool driveEncoderReversed,
-                           bool turningEncoderReversed)
+                           bool turningEncoderReversed,
+                           int steeringEncoderID)
     : m_driveMotor(driveMotorChannel),
       m_turningMotor(turningMotorChannel),
       m_driveEncoder(driveEncoderPorts[0], driveEncoderPorts[1]),
       m_turningEncoder(turningEncoderPorts[0], turningEncoderPorts[1]),
       m_reverseDriveEncoder(driveEncoderReversed),
-      m_reverseTurningEncoder(turningEncoderReversed) {
+      m_reverseTurningEncoder(turningEncoderReversed),
+      m_steeringEncoder(steeringEncoderID) {
   // Set the distance per pulse for the drive encoder. We can simply use the
   // distance traveled for one rotation of the wheel divided by the encoder
   // resolution.
@@ -58,8 +60,8 @@ void DiffSwerveModule::SetDesiredState(
       units::radian_t(m_turningEncoder.Get()), state.angle.Radians());
 
   // Set the motor outputs.
-  m_driveMotor.Set(driveOutput);
-  m_turningMotor.Set(turnOutput);
+  m_driveMotor.Set(ControlMode::PercentOutput, driveOutput);
+  m_turningMotor.Set(ControlMode::PercentOutput, turnOutput);
 }
 
 void DiffSwerveModule::ResetEncoders() {
