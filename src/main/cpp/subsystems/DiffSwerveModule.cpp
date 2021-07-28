@@ -38,8 +38,8 @@ void DiffSwerveModule::SetDesiredState(
       units::radian_t(m_steeringEncoder.GetPosition() * (wpi::math::pi / 180.0)), state.angle.Radians());
 
   // Set the motor outputs.
-  m_driveMotor.Set(ControlMode::PercentOutput, driveOutput - turnOutput);
-  m_turningMotor.Set(ControlMode::PercentOutput, -driveOutput - turnOutput);
+  m_driveMotor.Set(ControlMode::PercentOutput, (driveOutput - turnOutput) * 0.1);
+  m_turningMotor.Set(ControlMode::PercentOutput, (-driveOutput - turnOutput) * 0.1);
 }
 
 void DiffSwerveModule::ResetEncoders() {

@@ -53,9 +53,9 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
   auto [fl, fr, bl, br] = states;
 
   m_frontLeft.SetDesiredState(fl);
-  m_frontRight.SetDesiredState(fr);
-  m_rearLeft.SetDesiredState(bl);
-  m_rearRight.SetDesiredState(br);
+  // m_frontRight.SetDesiredState(fr);
+  // m_rearLeft.SetDesiredState(bl);
+  // m_rearRight.SetDesiredState(br);
 }
 
 void DriveSubsystem::SetModuleStates(
@@ -63,9 +63,9 @@ void DriveSubsystem::SetModuleStates(
   kDriveKinematics.NormalizeWheelSpeeds(&desiredStates,
                                         AutoConstants::kMaxSpeed);
   m_frontLeft.SetDesiredState(desiredStates[0]);
-  m_rearLeft.SetDesiredState(desiredStates[1]);
-  m_frontRight.SetDesiredState(desiredStates[2]);
-  m_rearRight.SetDesiredState(desiredStates[3]);
+  // m_rearLeft.SetDesiredState(desiredStates[1]);
+  // m_frontRight.SetDesiredState(desiredStates[2]);
+  // m_rearRight.SetDesiredState(desiredStates[3]);
 }
 
 void DriveSubsystem::ResetEncoders() {
