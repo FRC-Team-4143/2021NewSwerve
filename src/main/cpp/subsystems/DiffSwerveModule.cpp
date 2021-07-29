@@ -4,6 +4,7 @@
 
 #include "subsystems/DiffSwerveModule.h"
 
+#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/geometry/Rotation2d.h>
 #include <wpi/math>
 
@@ -38,8 +39,18 @@ void DiffSwerveModule::SetDesiredState(
       units::radian_t(m_steeringEncoder.GetPosition() * (wpi::math::pi / 180.0)), state.angle.Radians());
 
   // Set the motor outputs.
-  m_driveMotor.Set(ControlMode::PercentOutput, (driveOutput - turnOutput) * 0.1);
-  m_turningMotor.Set(ControlMode::PercentOutput, (-driveOutput - turnOutput) * 0.1);
+
+  //-------------Main Motor Ouput------------------------//
+
+  // m_driveMotor.Set(ControlMode::PercentOutput, (driveOutput - turnOutput) * 0.1);
+  // m_turningMotor.Set(ControlMode::PercentOutput, (-driveOutput - turnOutput) * 0.1);
+
+  //-------------SmartDashboard Printing--------------------//
+  frc::SmartDashboard::PutNumber("Drive Output", driveOutput);
+  frc::SmartDashboard::PutNumber("Turn Output", turnOutput);
+
+  frc::SmartDashboard::PutNumber("Drive Speed", GetDriveMotorSpeed());
+  frc::SmartDashboard::PutNumber("Turn Radians", m_steeringEncoder.GetPosition() * (wpi::math::pi / 180.0));
 }
 
 void DiffSwerveModule::ResetEncoders() {
