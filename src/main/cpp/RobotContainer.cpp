@@ -33,11 +33,11 @@ RobotContainer::RobotContainer() {
   m_drive.SetDefaultCommand(frc2::RunCommand(
       [this] {
         m_drive.Drive(units::meters_per_second_t(
-                          m_driverController.GetY(frc::GenericHID::kLeftHand)),
+                          m_driverController.GetY(frc::GenericHID::kLeftHand)), // Forward Back
                       units::meters_per_second_t(
-                          m_driverController.GetY(frc::GenericHID::kRightHand)),
+                          m_driverController.GetX(frc::GenericHID::kLeftHand)), // Strafe
                       units::radians_per_second_t(
-                          m_driverController.GetX(frc::GenericHID::kLeftHand)),
+                          m_driverController.GetX(frc::GenericHID::kRightHand)), // Rotate
                       false);
       },
       {&m_drive}));

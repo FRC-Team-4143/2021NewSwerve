@@ -49,15 +49,18 @@ constexpr int kRearRightPot = 3;
 // theoretically for *your* robot's drive. The RobotPy Characterization
 // Toolsuite provides a convenient tool for obtaining these values for your
 // robot.
-constexpr auto ks = 1_V;
-constexpr auto kv = 0.8 * 1_V * 1_s / 1_m;
-constexpr auto ka = 0.15 * 1_V * 1_s * 1_s / 1_m;
+
+    // constexpr auto ks = 1_V;
+    // constexpr auto kv = 0.8 * 1_V * 1_s / 1_m;
+    // constexpr auto ka = 0.15 * 1_V * 1_s * 1_s / 1_m;
 
 // Example value only - as above, this must be tuned for your drive!
-constexpr double kPFrontLeftVel = 0.5;
-constexpr double kPRearLeftVel = 0.5;
-constexpr double kPFrontRightVel = 0.5;
-constexpr double kPRearRightVel = 0.5;
+
+    // constexpr double kPFrontLeftVel = 0.5;
+    // constexpr double kPRearLeftVel = 0.5;
+    // constexpr double kPFrontRightVel = 0.5;
+    // constexpr double kPRearRightVel = 0.5;
+
 }  // namespace DriveConstants
 
 namespace ModuleConstants {
@@ -71,8 +74,15 @@ constexpr double kTurningEncoderDistancePerPulse =
     // Assumes the encoders are directly mounted on the wheel shafts
     (wpi::math::pi * 2) / static_cast<double>(kEncoderCPR);
 
-constexpr double kPModuleTurningController = 1;
-constexpr double kPModuleDriveController = 1;
+// PID Values
+constexpr double kPModuleTurningController = 0.125; //Original value: 1
+constexpr double kPModuleDriveController = 0.25; //Original value: 1]
+
+/*Values Tested in the AIR on:
+    Turning = 0.125
+    Drive = 0.25
+*/
+
 }  // namespace ModuleConstants
 
 namespace AutoConstants {
@@ -80,8 +90,9 @@ using radians_per_second_squared_t =
     units::compound_unit<units::radians,
                          units::inverse<units::squared<units::second>>>;
 
-constexpr auto kMaxSpeed = units::meters_per_second_t(3);
-constexpr auto kMaxAcceleration = units::meters_per_second_squared_t(3);
+//Doesn't affect Teleoperations
+constexpr auto kMaxSpeed = units::meters_per_second_t(5.5); //MAX SPEED 18 feet per second
+constexpr auto kMaxAcceleration = units::meters_per_second_squared_t(5.5); 
 constexpr auto kMaxAngularSpeed = units::radians_per_second_t(3.142);
 constexpr auto kMaxAngularAcceleration =
     units::unit_t<radians_per_second_squared_t>(3.142);

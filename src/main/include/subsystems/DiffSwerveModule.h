@@ -23,24 +23,30 @@ class DiffSwerveModule {
 
  public:
   DiffSwerveModule(int driveMotorChannel, int turningMotorChannel,
-               //const int driveEncoderPorts[2], const int turningEncoderPorts[2],
-               int steeringEncoderID);
+               int steeringEncoderID, std::string configName);
 
   frc::SwerveModuleState GetState();
+
+  void SetWheelOffset();
+  void LoadWheelOffset();
 
   void SetDesiredState(const frc::SwerveModuleState& state);
 
   void ResetEncoders();
 
-  float GetDriveMotorSpeed(){
-      return ((m_driveMotor.GetSelectedSensorVelocity() - m_turningMotor.GetSelectedSensorVelocity()) / 2.0) 
-          * (10.0 / 2048) /*Revs per second*/ * ((10 / 88.0) * (54 / 14.0) * (1 / 3.0)) /*Gear Ratios*/ * (4.5 * 0.0254 * wpi::math::pi) /*Axle Revs per Second*/;
-  }
+  float GetDriveMotorSpeed();
+  float GetSteeringPosition();
 
  private:
   // We have to use meters here instead of radians due to the fact that
   // ProfiledPIDController's constraints only take in meters per second and
   // meters per second squared.
+
+  //Name of each module
+  std::string _configName;
+
+  //stores offset
+  double _offset;
 
   static constexpr units::radians_per_second_t kModuleMaxAngularVelocity =
       units::radians_per_second_t(wpi::math::pi);  // radians per second
@@ -59,6 +65,8 @@ class DiffSwerveModule {
 
   bool m_reverseDriveEncoder;
   bool m_reverseTurningEncoder;
+
+  //---------------------------PID------------------------------------
 
   frc2::PIDController m_drivePIDController{
       ModuleConstants::kPModuleDriveController, 0, 0};

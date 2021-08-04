@@ -16,19 +16,19 @@ using namespace DriveConstants;
 DriveSubsystem::DriveSubsystem()
     : m_frontLeft{
           kFrontLeftDriveMotorPort,         kFrontLeftTurningMotorPort,
-          kFrontLeftPot},
+          kFrontLeftPot, "FLPos"},
 
       m_rearLeft{
           kRearLeftDriveMotorPort,       kRearLeftTurningMotorPort,
-          kRearLeftPot},
+          kRearLeftPot, "RLPos"},
 
       m_frontRight{
           kFrontRightDriveMotorPort,       kFrontRightTurningMotorPort,
-          kFrontRightPot},
+          kFrontRightPot, "FRPos"},
 
       m_rearRight{
           kRearRightDriveMotorPort,       kRearRightTurningMotorPort,
-          kRearRightPot},
+          kRearRightPot, "RRPos"},
 
       m_odometry{kDriveKinematics, m_gyro.GetRotation2d(), frc::Pose2d()} {}
 
@@ -52,11 +52,15 @@ void DriveSubsystem::Drive(units::meters_per_second_t xSpeed,
 
   auto [fl, fr, bl, br] = states;
 
+  //Main Drive System Output
+
   m_frontLeft.SetDesiredState(fl);
   // m_frontRight.SetDesiredState(fr);
   // m_rearLeft.SetDesiredState(bl);
   // m_rearRight.SetDesiredState(br);
 }
+
+//Probably mainly for autonomous \/
 
 void DriveSubsystem::SetModuleStates(
     wpi::array<frc::SwerveModuleState, 4> desiredStates) {
@@ -74,6 +78,28 @@ void DriveSubsystem::ResetEncoders() {
   m_frontRight.ResetEncoders();
   m_rearRight.ResetEncoders();
 }
+
+// ================================================================
+
+void DriveSubsystem::SetWheelOffsets() {
+	m_frontLeft.SetWheelOffset();
+	m_rearLeft.SetWheelOffset();
+	m_frontRight.SetWheelOffset();
+	m_rearRight.SetWheelOffset();
+}
+
+// ================================================================
+
+void DriveSubsystem::LoadWheelOffsets() {
+	m_frontLeft.LoadWheelOffset();
+	m_rearLeft.LoadWheelOffset();
+	m_frontRight.LoadWheelOffset();
+	m_rearRight.LoadWheelOffset();
+}
+
+// ================================================================
+
+
 
 units::degree_t DriveSubsystem::GetHeading() const {
   return m_gyro.GetRotation2d().Degrees();
